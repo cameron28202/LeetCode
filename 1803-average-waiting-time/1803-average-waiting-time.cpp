@@ -5,15 +5,13 @@ public:
         int currTime = 0;
         double totalWait = 0;
         for(int i = 0; i < customers.size(); ++i){
-            int arrivalTime = customers[i][0];
-            int waitTime = customers[i][1];
-            if(currTime < arrivalTime){
-                currTime += arrivalTime - currTime + waitTime;
-                totalWait += waitTime;
+            if(currTime < customers[i][0]){
+                currTime += customers[i][0] - currTime + customers[i][1];
+                totalWait += customers[i][1];
             }
             else{
-                currTime += waitTime;
-                totalWait += currTime - arrivalTime;
+                currTime += customers[i][1];
+                totalWait += currTime - customers[i][0];
             }
         }
         return totalWait / customers.size();
